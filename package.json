@@ -1,0 +1,25 @@
+{
+  "name": "awp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ac.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krisridgre-prog/webtech.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/krisridgre-prog/webtech/issues"
+  },
+  "homepage": "https://github.com/krisridgre-prog/webtech#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>
+            Student Management System
+        </title>
+    </head>
+    <body>
+        Enter Student Name:<input type="text" name="name" id="name">
+        <br><br>
+        Enter Student Roll No:<input type="text" name="roll"id="roll">
+        <br><br>
+        Enter Student Branch:<input type="text" name="branch" id="br">
+        <br><br>
+        Enter Student Year:<input type="text" name="year" id="yr">
+        <br><br>
+        Enter Student CGPA:<input type="text" name="cgpa" id="cg">
+        <br><br>
+        <input type="button" name="insert" value="INSERT" id="b1">
+        <input type="button" name="delete" value="DELETE" id="b2">
+        <input type="button" name="update" value="UPDATE" id="b3">
+        <input type="button" name="display" value="DISPLAY" id="b4">
+        <div id="d"></div>
+        <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+        import { getDatabase,set,ref,get,update,remove,child} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-database.js"
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyAOJ5Wrq_2RI7dPVsowCuYjTsbxDIt4-T4",
+        authDomain: "wireless-buzzer-game-21966.firebaseapp.com",
+        databaseURL: "https://wireless-buzzer-game-21966-default-rtdb.firebaseio.com",
+        projectId: "wireless-buzzer-game-21966",
+        storageBucket: "wireless-buzzer-game-21966.firebasestorage.app",
+        messagingSenderId: "433797480996",
+        appId: "1:433797480996:web:5767b12b662fb67507ceb1",
+        measurementId: "G-02PJTQ6Z7J"
+    };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const dbref = getDatabase();
+  document.getElementById("b1").addEventListener("click",insertData);
+  document.getElementById("b2").addEventListener("click",deleteData);
+  document.getElementById("b3").addEventListener("click",updateData);
+  document.getElementById("b4").addEventListener("click",displayData);
+  function insertData(){
+    var n = document.getElementById("name").value;
+    var r = document.getElementById("roll").value;
+    var b = document.getElementById("br").value;
+    var y = document.getElementById("yr").value;
+    var c = document.getElementById("cg").value;
+    var ob = {
+        name:n,
+        branch:b,
+        year:y,
+        cgpa:c
+    }
+    set(ref(dbref,"Student/"+r),ob);
+    alert("Student Data Inserted Successfully");
+  }
+  function deleteData(){
+    var r = document.getElementById("roll").value;
+    if(r==""){
+        alert("Please enter roll number");
+    }
+    else{
+        remove(ref(dbref,"Student/"+r));
+        alert("Student Data deleted successfully");
+    }
+  }
+  function updateData(){
+    var n = document.getElementById("name").value;
+    var r = document.getElementById("roll").value;
+    var b = document.getElementById("br").value;
+    var y = document.getElementById("yr").value;
+    var c = document.getElementById("cg").value;
+    var ob = {
+        name:n,
+        branch:b,
+        year:y,
+        cgpa:c
+    }
+    update(ref(dbref,"Student/"+r),ob);
+    alert("Student Data Updated Successfully");
+  }
+  function displayData(){
+    var r = document.getElementById("roll").value;
+    if(r===""){
+        alert("Please enter your roll number");
+    }
+    else{
+        get(ref(dbref,"Student/"+r)).then(function(data){
+            if(data.exists()){
+                var ob = data.val();
+                document.getElementById("d").innerHTML = 
+                "Roll Number:"+r+"<br>"+
+                "Name:"+ob.name+"<br>"+
+                "Branch:"+ob.branch+"<br>"+
+                "Year:"+ob.year+"<br>"+
+                "Cgpa:"+ob.cgpa;
+            }else{
+                alert("NO DATA AVAILABLE");
+            }
+        });
+    }
+  }
+</script>
+    </body>
+</html>
